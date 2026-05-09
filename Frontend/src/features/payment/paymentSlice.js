@@ -11,7 +11,7 @@ export const createPaymentSession = createAsyncThunk(
     "payment/createPaymentSession",
     async (orderId, { rejectWithValue }) => {
         try {
-            const res = await axios.post("http://localhost:5000/api/payment/create/session", {orderId}, {
+            const res = await axios.post("/api/payment/create/session", {orderId}, {
                 withCredentials: true
             })
 
@@ -30,7 +30,7 @@ export const verifyPayment = createAsyncThunk(
     "payment/verifyPayment",
     async ({orderId,session_id}, { rejectWithValue }) => {
         try {
-            const res = await axios.post("http://localhost:5000/api/payment/verify", {orderId,session_id}, {
+            const res = await axios.post("/api/payment/verify", {orderId,session_id}, {
                 withCredentials: true
             })
             return res.data;

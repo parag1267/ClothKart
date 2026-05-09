@@ -14,7 +14,7 @@ export const fetchCart = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await axios.get(
-                "http://localhost:5000/api/cart",
+                "/api/cart",
                 { withCredentials: true }
             );
             return res.data.cart;
@@ -32,7 +32,7 @@ export const addToCart = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try {
             const res = await axios.post(
-                "http://localhost:5000/api/cart/add",
+                "/api/cart/add",
                 data,
                 { withCredentials: true }
             );
@@ -54,7 +54,7 @@ export const removeFromCart = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try {
             const res = await axios.delete(
-                "http://localhost:5000/api/cart/remove",
+                "/api/cart/remove",
                 { 
                     data,
                     withCredentials: true 
@@ -75,7 +75,7 @@ export const updateCartItem = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try {
             const res = await axios.put(
-                "http://localhost:5000/api/cart/update",
+                "/api/cart/update",
                 data,
                 { withCredentials: true }
             );

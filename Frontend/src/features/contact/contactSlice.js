@@ -18,7 +18,7 @@ export const sendContactMessage = createAsyncThunk(
     'contact/sendContactmessage',
     async (formData, { rejectWithValue }) => {
         try {
-            const res = await axios.post('http://localhost:5000/api/contact', formData)
+            const res = await axios.post('/api/contact', formData)
             return res.data
         } catch (error) {
             if (error.response) {
@@ -33,7 +33,7 @@ export const fetchUnreadMessages = createAsyncThunk(
     'contact/fetchUnreadMessages',
     async (_, { rejectWithValue }) => {
         try {
-            const res = await axios.get('http://localhost:5000/api/contact', {
+            const res = await axios.get('/api/contact', {
                 withCredentials: true
             })
             return res.data
@@ -50,7 +50,7 @@ export const fetchAllMessages = createAsyncThunk(
     'contact/fetchAllMessages',
     async (_, { rejectWithValue }) => {
         try {
-            const res = await axios.get('http://localhost:5000/api/contact/all-message', {
+            const res = await axios.get('/api/contact/all-message', {
                 withCredentials: true
             })
             return res.data
@@ -67,7 +67,7 @@ export const markMessage = createAsyncThunk(
     'contact/markMessage',
     async (id, { rejectWithValue }) => {
         try {
-            const res = await axios.patch(`http://localhost:5000/api/contact/${id}/read`, {}, {
+            const res = await axios.patch(`/api/contact/${id}/read`, {}, {
                 withCredentials: true
             })
             return res.data

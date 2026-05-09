@@ -11,7 +11,7 @@ export const getWishlist = createAsyncThunk(
     "wishlist/getWishlist",
     async (_, { rejectWithValue }) => {
         try {
-            const res = await axios.get("http://localhost:5000/api/wishlist", {
+            const res = await axios.get("/api/wishlist", {
                 withCredentials: true
             });
 
@@ -27,7 +27,7 @@ export const moveToCart = createAsyncThunk(
     async (productId,{rejectWithValue}) => {
         try {
             const res = await axios.post(
-                `http://localhost:5000/api/wishlist/move-to-cart`,
+                `/api/wishlist/move-to-cart`,
                 {productId},
                 {withCredentials: true}
             )
@@ -43,7 +43,7 @@ export const toggleWishlist = createAsyncThunk(
     "wishlist/toggleWishlist",
     async (productId, { rejectWithValue }) => {
         try {
-            const res = await axios.post("http://localhost:5000/api/wishlist/toggle",
+            const res = await axios.post("/api/wishlist/toggle",
                 { productId },
                 { withCredentials: true }
             );
@@ -59,7 +59,7 @@ export const removeFromWishlist = createAsyncThunk(
     "wishlist/removeWishlist",
     async (productId, { rejectWithValue }) => {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/wishlist/${productId}`, {
+            const res = await axios.delete(`/api/wishlist/${productId}`, {
                 withCredentials: true
             });
 
@@ -74,7 +74,7 @@ export const clearWishlist = createAsyncThunk(
     "wishlist/clearWishlist",
     async (_, { rejectWithValue }) => {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/wishlist`, {
+            const res = await axios.delete(`/api/wishlist`, {
                 withCredentials: true
             });
 

@@ -54,7 +54,7 @@ const Profile = () => {
                 }
 
                 await axios.put(
-                    "http://localhost:5000/api/auth/profile",
+                    "/api/auth/profile",
                     data,
                     {
                         withCredentials: true,

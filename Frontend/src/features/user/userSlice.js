@@ -16,7 +16,7 @@ export const getUsers = createAsyncThunk(
     async ({ page, limit, search, role = "", status = "" }, { rejectWithValue }) => {
         try {
             const res = await axios.get(
-                `http://localhost:5000/api/admin/users?page=${page}&limit=${limit}&search=${search || ""}&role=${role}&status=${status}`,
+                `/api/admin/users?page=${page}&limit=${limit}&search=${search || ""}&role=${role}&status=${status}`,
                 { withCredentials: true }
             );
 
@@ -33,7 +33,7 @@ export const getUser = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         try {
             const res = await axios.get(
-                `http://localhost:5000/api/admin/users/${id}`,
+                `/api/admin/users/${id}`,
                 { withCredentials: true }
             );
             return res.data.user;
@@ -48,7 +48,7 @@ export const createUser = createAsyncThunk(
     async (userData, {rejectWithValue}) => {
         try {
             const res = await axios.post(
-                "http://localhost:5000/api/admin/users/create",
+                "/api/admin/users/create",
                 userData,
                 {withCredentials: true}
             ) 
@@ -66,7 +66,7 @@ export const deleteUser = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         try {
             const res = await axios.delete(
-                `http://localhost:5000/api/admin/users/${id}`,
+                `/api/admin/users/${id}`,
                 { withCredentials: true }
             );
 
@@ -83,7 +83,7 @@ export const toggleUserStatus = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         try {
             const res = await axios.patch(
-                `http://localhost:5000/api/admin/users/${id}/status`,
+                `/api/admin/users/${id}/status`,
                 {},
                 { withCredentials: true }
             );

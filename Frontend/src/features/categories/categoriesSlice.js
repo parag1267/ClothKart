@@ -11,7 +11,7 @@ export const fetchCategories = createAsyncThunk(
     "category/fetch",
     async (_,{rejectWithValue}) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/category`);
+            const res = await axios.get(`/api/category`);
             return res.data.categories;
         } catch (error) {
             return rejectWithValue(error.response?.data?.messsage || "Fetch failed");
@@ -33,7 +33,7 @@ export const addCategories = createAsyncThunk(
                 formData.append("image",data.images);
             }
 
-            const res = await axios.post(`http://localhost:5000/api/category`,formData,{
+            const res = await axios.post(`/api/category`,formData,{
                 headers: {"Content-Type": "multipart/form-data"}
             });
 
@@ -59,7 +59,7 @@ export const updateCategories = createAsyncThunk(
                 formData.append("image",data.images);
             }
 
-            const res = await axios.put(`http://localhost:5000/api/category/${id}`,formData,{
+            const res = await axios.put(`/api/category/${id}`,formData,{
                 headers: {"Content-Type": "multipart/form-data"}
             })
 
@@ -74,7 +74,7 @@ export const deleteCategory = createAsyncThunk(
     "category/delete",
     async (id,{rejectWithValue}) => {
         try {
-            await axios.delete(`http://localhost:5000/api/category/${id}`);
+            await axios.delete(`/api/category/${id}`);
             return id;
         } catch (error) {
             return rejectWithValue(error.response?.data?.messsage || "Delete failed")

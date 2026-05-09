@@ -13,7 +13,7 @@ export const fetchSubCategories = createAsyncThunk(
     "subCategory/fetchSubCategories",
     async (categorySlug = '', { rejectWithValue }) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/subCategory${categorySlug ? `?category=${categorySlug}` : ""}`);
+            const res = await axios.get(`/api/subCategory${categorySlug ? `?category=${categorySlug}` : ""}`);
             return res.data.subCategories;
         } catch (error) {
             return rejectWithValue(error.response?.data || "Fetched failed");
@@ -35,7 +35,7 @@ export const addSubCategories = createAsyncThunk(
             }
 
             const res = await axios.post(
-                `http://localhost:5000/api/subCategory`,
+                `/api/subCategory`,
                 formData,
                 {
                     headers: { "Content-Type": "multipart/form-data" }
@@ -63,7 +63,7 @@ export const updateSubCategories = createAsyncThunk(
             }
 
             const res = await axios.put(
-                `http://localhost:5000/api/subCategory/${id}`,
+                `/api/subCategory/${id}`,
                 formData,
                 { headers: { "Content-Type": "multipart/form-data" } }
             )

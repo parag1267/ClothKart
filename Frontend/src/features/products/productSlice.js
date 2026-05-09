@@ -32,7 +32,7 @@ export const fetchPoloTrending = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await axios.get(
-                "http://localhost:5000/api/products/polo-trending"
+                "/api/products/polo-trending"
             );
             return res.data.trendingPolo
         } catch (error) {
@@ -46,7 +46,7 @@ export const fetchNewArrivals = createAsyncThunk(
     async ({ page = 1, limit } = {}, { rejectWithValue }) => {
         try {
             const res = await axios.get(
-                "http://localhost:5000/api/products/newarrival",
+                "/api/products/newarrival",
                 {
                     params: { page, limit }
                 }
@@ -63,7 +63,7 @@ export const fetchTabs = createAsyncThunk(
     async (category, { rejectWithValue }) => {
         try {
             const res = await axios.get(
-                `http://localhost:5000/api/products/Allcategory/tabs/${category}`
+                `/api/products/Allcategory/tabs/${category}`
             );
             return res.data.tabs;
         } catch (error) {
@@ -103,7 +103,7 @@ export const fetchProducts = createAsyncThunk(
             if (sizes) params.sizes = sizes;
 
             const res = await axios.get(
-                `http://localhost:5000/api/products`,
+                `/api/products`,
                 { params }
             );
             return res.data;
@@ -118,7 +118,7 @@ export const fetchSingleProduct = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         try {
             const res = await axios.get(
-                `http://localhost:5000/api/products/${id}`
+                `/api/products/${id}`
             )
             return res.data.product;
         } catch (error) {
@@ -132,7 +132,7 @@ export const fetchTrendingProductHome = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await axios.get(
-                "http://localhost:5000/api/products/all-trending"
+                "/api/products/all-trending"
             )
             return res.data.trendingAll;
         } catch (error) {
@@ -146,7 +146,7 @@ export const createProduct = createAsyncThunk(
     async (formData, { rejectWithValue }) => {
         try {
             const res = await axios.post(
-                `http://localhost:5000/api/products`,
+                `/api/products`,
                 formData,
                 {
                     headers: { "Content-Type": "multipart/form-data" }
@@ -164,7 +164,7 @@ export const updateProduct = createAsyncThunk(
     async ({ id, data }, { rejectWithValue }) => {
         try {
             const res = await axios.put(
-                `http://localhost:5000/api/products/${id}`,
+                `/api/products/${id}`,
                 data,
                 {
                     headers: { "Content-Type": "multipart/form-data" }
@@ -182,7 +182,7 @@ export const deleteProduct = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         try {
             const res = await axios.delete(
-                `http://localhost:5000/api/products/${id}`
+                `/api/products/${id}`
             )
             return id;
         } catch (error) {
@@ -195,7 +195,7 @@ export const fetchRelatedProducts = createAsyncThunk(
     "products/fetchRelatedProducts",
     async ({ subCategory, excludeId }, { rejectWithValue }) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/products`, {
+            const res = await axios.get(`/api/products`, {
                 params: { tab: subCategory }
             })
 

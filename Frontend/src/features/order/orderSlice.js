@@ -16,7 +16,7 @@ export const createOrder = createAsyncThunk(
     "order/createOrder",
     async (data, { rejectWithValue }) => {
         try {
-            const res = await axios.post("http://localhost:5000/api/order", data, {
+            const res = await axios.post("/api/order", data, {
                 withCredentials: true
             })
 
@@ -31,7 +31,7 @@ export const fetchMyOrder = createAsyncThunk(
     "order/fetchMyOrder",
     async (_, { rejectWithValue }) => {
         try {
-            const res = await axios.get("http://localhost:5000/api/order/my", {
+            const res = await axios.get("/api/order/my", {
                 withCredentials: true
             })
 
@@ -46,7 +46,7 @@ export const fetchSavedAddresses = createAsyncThunk(
     "order/fetchSavedAddressed",
     async (_,{rejectWithValue}) => {
         try {
-            const res = await axios.get("http://localhost:5000/api/order/saved-address",{withCredentials: true})
+            const res = await axios.get("/api/order/saved-address",{withCredentials: true})
             return res.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || "Failed to fetch address")
@@ -58,7 +58,7 @@ export const fetchSingleOrder = createAsyncThunk(
     "order/fetchSingleOrder",
     async (id, { rejectWithValue }) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/order/${id}`, {
+            const res = await axios.get(`/api/order/${id}`, {
                 withCredentials: true
             })
 
@@ -73,7 +73,7 @@ export const fetchAllOrder = createAsyncThunk(
     "order/fetchAllOrder",
     async ({page,limit,search}, { rejectWithValue }) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/order?page=${page}&limit=${limit}&search=${search || ""}`, {
+            const res = await axios.get(`/api/order?page=${page}&limit=${limit}&search=${search || ""}`, {
                 withCredentials: true
             })
 
@@ -88,7 +88,7 @@ export const updateOrderStatus = createAsyncThunk(
     "order/updateOrderStatus",
     async ({ id, status }, { rejectWithValue }) => {
         try {
-            const res = await axios.put(`http://localhost:5000/api/order/${id}/status`,
+            const res = await axios.put(`/api/order/${id}/status`,
                 { status },
                 { withCredentials: true }
             )
