@@ -9,6 +9,7 @@ import ProtectedRoutes from './router/ProtectedRoutes'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserProfile } from './features/auth/authSlice'
 import GoogleCallback from './containers/GoogleCallback'
+import NotFound from './components/common/NotFound'
 
 const App = () => {
   const dispatch = useDispatch();
@@ -22,17 +23,18 @@ const App = () => {
     <>
       <Routes>
         <Route element={<PublicRoutes />}>
-          <Route path={'/login'} element={<Login />} />
-          <Route path={'/register'} element={<Register />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
         </Route>
 
-        <Route path={'/google/callback'} element={<GoogleCallback />}/>
+        <Route path='/google/callback' element={<GoogleCallback />}/>
 
         <Route element={<ProtectedRoutes />}>
-          <Route path={'/admin/*'} element={<AdminRoutes />} />
+          <Route path='/admin/*' element={<AdminRoutes />} />
         </Route>
 
-        <Route path={'/*'} element={<UserRoutes />} />
+        <Route path='/*' element={<UserRoutes />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </>
   )

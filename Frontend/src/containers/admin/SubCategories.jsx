@@ -59,6 +59,7 @@ const SubCategories = () => {
         await dispatch(addSubCategories(values)).unwrap();
         toast.success("SubCategory added successfully");
       }
+      closeModal();
     } catch (error) {
       toast.error(error?.message || "Something went wrong");
     }
@@ -128,22 +129,23 @@ const SubCategories = () => {
             <p className="mt-2 text-gray-500">Loading categories....</p>
           </div>
         ) : (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-              <AnimatePresence>
-                {filteredCategories.map((item, index) => (
-                  <SubCategoriesCard
-                    key={item._id}
-                    subCategory={item}
-                    index={index}
-                    openEditModel={openEdit}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+            <AnimatePresence>
+              {filteredCategories.map((item, index) => (
+                <SubCategoriesCard
+                  key={item._id}
+                  subCategory={item}
+                  index={index}
+                  openEditModel={openEdit}
                   handleDelete={handleDelete}
-                  />
-                ))}
-              </AnimatePresence>
-            </div>
+                />
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
+      </div>
 
-            {showModel && (
+      {showModel && (
               <SubCategoriesModel
                 isOpen={showModel}
                 onClose={closeModal}
@@ -151,9 +153,6 @@ const SubCategories = () => {
                 editingCategory={editingCategory}
               />
             )}
-          </>
-        )}
-      </div>
     </div>
   )
 }

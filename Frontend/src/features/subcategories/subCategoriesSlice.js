@@ -4,6 +4,8 @@ import axios from "../../utils/axiosInstance";
 const initialState = {
     subCategories: [],
     loading: false,
+    saving: false,
+    deleting: false,
     error: null
 }
 
@@ -65,10 +67,10 @@ export const updateSubCategories = createAsyncThunk(
                 formData,
                 { headers: { "Content-Type": "multipart/form-data" } }
             )
-            onsole.log("Update Response:", res.data.subCategory)
+            console.log("Update Response:", res.data.subCategory)
             return res.data.subCategory;
         } catch (error) {
-            console.log(error.response?.data);
+            console.log("Update Error:",error.response?.data);
             return rejectWithValue(error.response?.data || "Updated failed");
         }
     }
@@ -107,25 +109,25 @@ export const subCategoriesSlice = createSlice({
             })
 
             .addCase(addSubCategories.pending, (state) => {
-                state.loading = true;
+                state.saving = true;
             })
 
             .addCase(addSubCategories.fulfilled, (state, action) => {
-                state.loading = false;
+                state.saving = false;
                 state.subCategories.push(action.payload);
             })
 
             .addCase(addSubCategories.rejected, (state, action) => {
-                state.loading = false;
+                state.saving = false;
                 state.error = action.payload;
             })
 
             .addCase(updateSubCategories.pending, (state) => {
-                state.loading = true;
+                state.saving = true;
             })
 
             .addCase(updateSubCategories.fulfilled, (state, action) => {
-                state.loading = false;
+                state.saving = false;
 
                 const index = state.subCategories.findIndex(
                     (subCategory) => subCategory._id === action.payload._id
@@ -137,23 +139,23 @@ export const subCategoriesSlice = createSlice({
             })
 
             .addCase(updateSubCategories.rejected, (state, action) => {
-                state.loading = false;
+                state.saving = false;
                 state.error = action.payload;
             })
 
             .addCase(deleteSubCategories.pending, (state) => {
-                state.loading = true;
+                state.deleting = true;
             })
 
             .addCase(deleteSubCategories.fulfilled, (state, action) => {
-                state.loading = false;
+                state.deleting = false;
                 state.subCategories = state.subCategories.filter(
                     (subCategory) => subCategory._id !== action.payload
                 )
             })
 
             .addCase(deleteSubCategories.rejected, (state, action) => {
-                state.loading = false;
+                state.deleting = false;
                 state.error = action.payload;
             })
     }

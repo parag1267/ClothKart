@@ -97,11 +97,11 @@ const ProductItem = ({ category,
                     </div>
 
                     <div className="mt-2">
-                        <h3 className='text-[11px] text-[#585c70] font-semibold border-b border-dashed border-gray-400 pb-0.5'>
+                        <h3 className='text-[11px] md:text-sm truncate text-[#585c70] font-semibold border-b border-dashed border-gray-400 pb-0.5'>
                             {item.name}
                         </h3>
 
-                        <p className="text-[11px] text-[#737577] mt-1">
+                        <p className="text-[11px] md:text-[13px]  text-[#737577] mt-1">
                             {item.subCategory?.name}
                         </p>
 

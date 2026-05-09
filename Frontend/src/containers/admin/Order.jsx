@@ -1,8 +1,9 @@
-import { CheckCircle, Clock, Eye, IndianRupee, PackageCheck, ShoppingBag, Truck, XCircle } from 'lucide-react'
+import { CheckCircle, ChevronLeft, ChevronRight, Clock, Eye, IndianRupee, PackageCheck, ShoppingBag, Truck, XCircle } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllOrder, updateOrderStatus } from '../../features/order/orderSlice'
+import ReactPaginate from 'react-paginate'
 
 const statusStyles = {
   processing: 'bg-amber-50 text-amber-800',
@@ -330,7 +331,7 @@ const Order = () => {
                   <span className="font-semibold text-gray-700">{currentPage + 1}</span>
                   {' '}of{' '}
                   <span className="font-semibold text-gray-700">{totalPages}</span>
-                  <span className="ml-2 text-gray-400">({total} users)</span>
+                  <span className="ml-2 text-gray-400">({allOrders.length} orders)</span>
                 </div>
                 <motion.div
                   variants={paginationVariants}

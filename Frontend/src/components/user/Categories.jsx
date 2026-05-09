@@ -124,7 +124,7 @@ const Categories = ({ categorySlug }) => {
 
           </div>
 
-          <div className="hidden lg:grid grid-cols-4 gap-4 px-4">
+          <div className="hidden lg:grid grid-cols-4 gap-4 px-4 lg:justify-center">
             {
               subCategories.map((cate, index) => (
                 <div key={cate._id} onClick={() => handleCategoryClick(cate)} className="group cursor-pointer">

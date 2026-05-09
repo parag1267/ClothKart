@@ -11,7 +11,7 @@ const SelectField = ({ label, options = [], value, onChange,onBlur, name,error,t
         onChange={onChange}
         onBlur={onBlur}
         disabled={disabled}
-        className={`input-global ${error && touched ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+        className={`input-global ${error && touched ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-blue-400 focus:border-blue-400 focus:ring-blue-400'}`}
       >
         <option value="">Select {label}</option>
         {

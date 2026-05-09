@@ -16,6 +16,7 @@ import TrackOrder from '../containers/user/TrackOrder'
 import NewArrivals from '../containers/user/NewArrivals'
 import RelatedProduct from '../containers/user/RelatedProduct'
 import { useSelector } from 'react-redux'
+import NotFound from '../components/common/NotFound'
 
 const UserRouters = () => {
   const { user } = useSelector(state => state.auth)
@@ -42,6 +43,7 @@ const UserRouters = () => {
           <Route path='/wishlist' element={<WishList />}/>
           <Route path='/profile' element={<Profile />}/>
           <Route path='/track-order' element={<TrackOrder />}/>
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes> 
     </>
