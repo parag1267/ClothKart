@@ -174,17 +174,6 @@ const AdminLayout = () => {
 
             {isProfileOpen && (
               <div className="absolute bottom-full left-0 right-0 mb-2 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden animate-slideUp">
-
-                <button
-                  onClick={() => {
-                    navigate("/admin/profile");
-                    setIsProfileOpen(false);
-                  }}
-                  className='w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors'>
-                  <CircleUserRound size={16} />
-                  My Profile
-                </button>
-
                 <button
                   onClick={handleLogout}
                   className='w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors border-t'>
