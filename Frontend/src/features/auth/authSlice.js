@@ -4,6 +4,7 @@ import axios from "../../utils/axiosInstance";
 const initialState = {
     user: null,
     isAuthenticated: false,
+    accessToken: localStorage.getItem('accessToken') || null,
     loginLoading: false,
     registerLoading: false,
     profileLoading: false,
@@ -114,6 +115,7 @@ const authSlice = createSlice({
             state.isAuthenticated = false;
             state.appLoading = false;
             state.logoutLoading = false;
+            localStorage.removeItem('accessToken');
         },
         setAppLoading: (state, action) => {
             state.appLoading = action.payload;
@@ -147,6 +149,8 @@ const authSlice = createSlice({
                 state.appLoading = false;
                 state.user = action.payload.user;
                 state.isAuthenticated = true;
+                state.accessToken = action.payload.accessToken;
+                localStorage.setItem('accessToken', action.payload.accessToken);
             })
 
             .addCase(loginUser.rejected, (state, action) => {
@@ -188,6 +192,8 @@ const authSlice = createSlice({
                 state.logoutLoading = false;
                 state.user = null;
                 state.isAuthenticated = false;
+                state.accessToken = null;
+                localStorage.removeItem('accessToken');
             })
             .addCase(logoutUser.rejected, (state, action) => {
                 state.logoutLoading = false;

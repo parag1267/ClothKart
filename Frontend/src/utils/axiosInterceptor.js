@@ -1,14 +1,16 @@
 import axiosInstance from "./axiosInstance";
+import { store } from "../app/store";
+import { logout } from "../features/auth/authSlice";
 
 let isRefreshing = false;
 let failedQueue = [];
 
-const processQueue = (error) => {
+const processQueue = (error, token = null) => {
     failedQueue.forEach(prom => {
         if (error) {
             prom.reject(error);
         } else {
-            prom.resolve();
+            prom.resolve(token);
         }
     });
     failedQueue = [];
@@ -19,32 +21,39 @@ axiosInstance.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
 
-        // Refresh route pe loop mat karo
         if (originalRequest.url?.includes('/auth/refresh')) {
+            store.dispatch(logout());
             window.location.href = '/login';
             return Promise.reject(error);
         }
 
         if (error.response?.status === 401 && !originalRequest._retry) {
-            
+
             if (isRefreshing) {
-                // Dusri requests queue mein daalo
                 return new Promise((resolve, reject) => {
                     failedQueue.push({ resolve, reject });
-                }).then(() => axiosInstance(originalRequest))
-                  .catch(err => Promise.reject(err));
+                }).then((token) => {
+                    originalRequest.headers.Authorization = `Bearer ${token}`;
+                    return axiosInstance(originalRequest);
+                }).catch(err => Promise.reject(err));
             }
 
             originalRequest._retry = true;
             isRefreshing = true;
 
             try {
-                // Refresh token se naya access token lo
-                await axiosInstance.get('/auth/refresh');
-                processQueue(null);
+                const res = await axiosInstance.get('/auth/refresh');
+                const newToken = res.data.accessToken;
+
+                // New token save karo
+                localStorage.setItem('accessToken', newToken);
+                processQueue(null, newToken);
+
+                originalRequest.headers.Authorization = `Bearer ${newToken}`;
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
-                processQueue(refreshError);
+                processQueue(refreshError, null);
+                store.dispatch(logout());
                 window.location.href = '/login';
                 return Promise.reject(refreshError);
             } finally {
