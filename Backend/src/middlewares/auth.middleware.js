@@ -5,10 +5,7 @@ const bcrypt = require('bcrypt');
 
 const isAuth = async (req, res, next) => {
     try {
-        const authHeader = req.headers.authorization;
-        let token = authHeader?.startsWith('Bearer ')
-            ? authHeader.split(' ')[1]
-            : req.cookies?.accessToken;
+        let token = req.cookies.accessToken;
 
         if (!token) {
             return res.status(401).json({
