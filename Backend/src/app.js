@@ -35,7 +35,7 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"]
 }));
 
-app.options('*', cors());
+app.options('/{*any}', cors());
 
 
 app.use(express.json());
@@ -45,5 +45,13 @@ app.use(cookieParser());
 app.use(passport.initialize());
 
 app.use('/api',indexRoute);
+
+app.use((err, req, res, next) => {
+    console.error("🔥 Error:", err.message);
+    res.status(err.status || 500).json({
+        success: false,
+        message: err.message || "Internal Server Error"
+    });
+});
 
 module.exports = app;
