@@ -5,9 +5,9 @@ const axiosInstance = axios.create({
     withCredentials: true
 });
 
+// Har request mein token add karo
 axiosInstance.interceptors.request.use((config) => {
-    const token = store.getState().auth?.accessToken 
-                  || localStorage.getItem('accessToken');
+    const token = localStorage.getItem('accessToken');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }

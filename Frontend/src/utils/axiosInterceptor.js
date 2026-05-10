@@ -7,11 +7,8 @@ let failedQueue = [];
 
 const processQueue = (error, token = null) => {
     failedQueue.forEach(prom => {
-        if (error) {
-            prom.reject(error);
-        } else {
-            prom.resolve(token);
-        }
+        if (error) prom.reject(error);
+        else prom.resolve(token);
     });
     failedQueue = [];
 };
@@ -23,6 +20,7 @@ axiosInstance.interceptors.response.use(
 
         if (originalRequest.url?.includes('/auth/refresh')) {
             store.dispatch(logout());
+            localStorage.removeItem('accessToken');
             window.location.href = '/login';
             return Promise.reject(error);
         }
@@ -42,18 +40,16 @@ axiosInstance.interceptors.response.use(
             isRefreshing = true;
 
             try {
-                const res = await axiosInstance.get('/auth/refresh');
+                const res = await axiosInstance.get('/api/auth/refresh');
                 const newToken = res.data.accessToken;
-
-                // New token save karo
                 localStorage.setItem('accessToken', newToken);
                 processQueue(null, newToken);
-
                 originalRequest.headers.Authorization = `Bearer ${newToken}`;
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
                 processQueue(refreshError, null);
                 store.dispatch(logout());
+                localStorage.removeItem('accessToken');
                 window.location.href = '/login';
                 return Promise.reject(refreshError);
             } finally {
