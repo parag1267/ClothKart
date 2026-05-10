@@ -173,11 +173,13 @@ const signin = async (req, res) => {
         res
             .cookie("accessToken", accessToken, {
                 httpOnly: true,
-                secure: false
+                secure: true,
+                sameSite: "None"
             })
             .cookie("refreshToken", refreshToken, {
                 httpOnly: true,
-                secure: false
+                secure: true,
+                sameSite: "None"
             })
             .status(200).json({
                 success: true,
@@ -207,8 +209,8 @@ const logout = async (req, res) => {
 
         const cookieOptions = {
             httpOnly: true,
-            secure: false,
-            sameSite: 'lax'
+            secure: true,
+            sameSite: 'None'
         }
 
         res
@@ -375,11 +377,13 @@ const googleAuthCallback = async (req, res) => {
         res
             .cookie("accessToken", accessToken, {
                 httpOnly: true,
-                secure: false
+                secure: true,
+                sameSite: "None"
             })
             .cookie("refreshToken", refreshToken, {
                 httpOnly: true,
-                secure: false
+                secure: true,
+                sameSite: "None"
             })
             .redirect(`${process.env.FRONTEND_URL}/`);
     } catch (error) {
