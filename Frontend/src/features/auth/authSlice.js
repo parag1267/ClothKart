@@ -17,7 +17,7 @@ export const registerUser = createAsyncThunk(
     async (userData, { rejectWithValue }) => {
         try {
             const res = await axios.post(
-                "https://clothing-e-commerce-web-application.onrender.com/api/auth/signup",
+                "/api/auth/signup",
                 userData,
                 { withCredentials: true }
             );
@@ -35,7 +35,7 @@ export const loginUser = createAsyncThunk(
     async (userData, { rejectWithValue }) => {
         try {
             const res = await axios.post(
-                "https://clothing-e-commerce-web-application.onrender.com/api/auth/signin",
+                "/api/auth/signin",
                 userData,
                 { withCredentials: true }
             );
@@ -57,7 +57,7 @@ export const fetchUserProfile = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await axios.get(
-                "https://clothing-e-commerce-web-application.onrender.com/api/auth/profile",
+                "/api/auth/profile",
                 { withCredentials: true }
             );
             return res.data.user;
@@ -75,7 +75,7 @@ export const logoutUser = createAsyncThunk(
     async (_, { dispatch, rejectWithValue }) => {
         try {
             await axios.post(
-                "https://clothing-e-commerce-web-application.onrender.com/api/auth/logout",
+                "/api/auth/logout",
                 {},
                 { withCredentials: true }
             )
@@ -92,7 +92,7 @@ export const googleUser = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await axios.get(
-                "https://clothing-e-commerce-web-application.onrender.com/api/auth/profile",
+                "/api/auth/profile",
                 { withCredentials: true }
             )
 
