@@ -13,29 +13,29 @@ app.use(cors({
 // ✅ Allowed Origins List
 const allowedOrigins = [
     process.env.FRONTEND_URL,
-    "https://clothing-e-commerce-web-application-kappa.vercel.app",
-    "https://clothing-e-commerce-web-application-67o9to679.vercel.app",
     "http://localhost:5173",
 ];
 
 app.use(cors({
-    origin: function (origin, callback) {
-        // Postman ya server-to-server request allow karo
-        if (!origin) return callback(null, true);
+    origin: allowedOrigins,
+    credentials: true
+}))
 
-        if (allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            console.error("❌ CORS Blocked:", origin);
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "Cookie"]
-}));
+// app.use(cors({
+//     origin: function (origin, callback) {
+//         if (!origin) return callback(null, true);
 
-app.options('/{*any}', cors());
+//         if (allowedOrigins.includes(origin)) {
+//             callback(null, true);
+//         } else {
+//             console.error("❌ CORS Blocked:", origin);
+//             callback(new Error("Not allowed by CORS"));
+//         }
+//     },
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+//     allowedHeaders: ["Content-Type", "Authorization", "Cookie"]
+// }));
 
 
 app.use(express.json());
