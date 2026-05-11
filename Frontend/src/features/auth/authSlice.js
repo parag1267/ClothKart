@@ -89,12 +89,12 @@ export const logoutUser = createAsyncThunk(
 
 export const googleUser = createAsyncThunk(
     "auth/googleUser",
-    async (_, { rejectWithValue }) => {
+    async (_,{rejectWithValue}) => {
         try {
             const res = await axios.get(
                 "/api/auth/profile",
-                { withCredentials: true }
-            )
+                {withCredentials: true}
+            ) 
 
             return res.data.user;
         } catch (error) {
@@ -171,10 +171,9 @@ const authSlice = createSlice({
             .addCase(fetchUserProfile.rejected, (state, action) => {
                 state.profileLoading = false;
                 state.appLoading = false;
-                state.error = action.payload;
                 state.user = null;
                 state.isAuthenticated = false;
-
+                state.error = action.payload;
             })
 
             .addCase(logoutUser.pending, (state) => {
@@ -183,26 +182,26 @@ const authSlice = createSlice({
             })
             .addCase(logoutUser.fulfilled, (state) => {
                 state.logoutLoading = false;
-                state.user = null;
-                state.isAuthenticated = false;
+                state.user = null;        
+                state.isAuthenticated = false;       
             })
             .addCase(logoutUser.rejected, (state, action) => {
                 state.logoutLoading = false;
                 state.error = action.payload;
             })
 
-            .addCase(googleUser.pending, (state, action) => {
+            .addCase(googleUser.pending,(state,action) => {
                 state.appLoading = true;
                 state.error = null;
             })
 
-            .addCase(googleUser.fulfilled, (state, action) => {
+            .addCase(googleUser.fulfilled,(state,action) => {
                 state.appLoading = false;
                 state.user = action.payload;
                 state.isAuthenticated = true;
             })
 
-            .addCase(googleUser.rejected, (state, action) => {
+            .addCase(googleUser.rejected,(state,action) => {
                 state.appLoading = false;
                 state.error = action.payload;
             })
