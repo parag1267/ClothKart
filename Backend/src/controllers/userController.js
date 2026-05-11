@@ -3,6 +3,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { deleteImage, uploadImage } = require('../utils/cloudinaryUpload');
 
+const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax'
+};
+
 const isValidEmail = (email) => {
     const regex = /^\S+@\S+\.\S+$/;
     return regex.test(email);
@@ -171,16 +177,8 @@ const signin = async (req, res) => {
         delete userObject.refreshToken;
 
         res
-            .cookie("accessToken", accessToken, {
-                httpOnly: true,
-                secure: true,
-                sameSite: "None"
-            })
-            .cookie("refreshToken", refreshToken, {
-                httpOnly: true,
-                secure: true,
-                sameSite: "None"
-            })
+            .cookie("accessToken", accessToken, cookieOptions)
+            .cookie("refreshToken", refreshToken, cookieOptions)
             .status(200).json({
                 success: true,
                 message: "Login successfully",
@@ -205,12 +203,6 @@ const logout = async (req, res) => {
             await USER_MODEL.updateOne({ _id: decoded.id }, {
                 $unset: { refreshToken: 1 }
             })
-        }
-
-        const cookieOptions = {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'None'
         }
 
         res
@@ -335,11 +327,7 @@ const refreshToken = async (req, res) => {
         );
 
         res
-            .cookie("accessToken", newAccessToken, {
-                httpOnly: true,
-                secure: true,
-                sameSite: "None"
-            })
+            .cookie("accessToken", newAccessToken, cookieOptions)
             .status(200).json({
                 success: true,
                 message: "Access genrate successfully",
@@ -375,16 +363,8 @@ const googleAuthCallback = async (req, res) => {
         await user.save();
 
         res
-            .cookie("accessToken", accessToken, {
-                httpOnly: true,
-                secure: true,
-                sameSite: "None"
-            })
-            .cookie("refreshToken", refreshToken, {
-                httpOnly: true,
-                secure: true,
-                sameSite: "None"
-            })
+            .cookie("accessToken", accessToken, cookieOptions)
+            .cookie("refreshToken", refreshToken, cookieOptions)
             .redirect(`${process.env.FRONTEND_URL}/`);
     } catch (error) {
         res.status(500).json({

@@ -172,12 +172,9 @@ const authSlice = createSlice({
                 state.profileLoading = false;
                 state.appLoading = false;
                 state.error = action.payload;
+                state.user = null;
+                state.isAuthenticated = false;
 
-                // only logout if actually blocked
-                if (action.payload === "blocked") {
-                    state.user = null;
-                    state.isAuthenticated = false;
-                }
             })
 
             .addCase(logoutUser.pending, (state) => {

@@ -24,7 +24,7 @@ const GoogleCallback = () => {
                 toast.error("Google login failed");
                 navigate("/login")
             })
-    })
+    }, [dispatch, navigate])
     return (
         <div className='min-h-screen flex items-center justify-center bg-gray-100'>
             <div className='text-center'>
